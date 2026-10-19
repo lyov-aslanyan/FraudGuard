@@ -1,0 +1,20 @@
+# Python
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.venv/
+venv/
+.ipynb_checkpoints/
+
+# Dataset and secrets
+data/
+.env
+.env.*
+
+# IDE and OS
+.idea/
+.vscode/
+.DS_Store
+
+# Temporary files
+*.log

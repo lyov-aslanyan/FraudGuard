@@ -1,0 +1,8 @@
+
+services:
+  fraudguard:
+    build: .
+    container_name: fraudguard
+    ports:
+      - "8001:8000"
+    restart: unless-stopped

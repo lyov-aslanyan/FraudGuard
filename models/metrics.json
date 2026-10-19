@@ -1,0 +1,33 @@
+{
+  "comparison": {
+    "Logistic Regression": {
+      "validation_average_precision": 0.6922959425189619,
+      "validation_roc_auc": 0.9711875285670344,
+      "training_time_seconds": 1.39
+    },
+    "Random Forest": {
+      "validation_average_precision": 0.7953350636219323,
+      "validation_roc_auc": 0.9525081151973054,
+      "training_time_seconds": 23.78
+    }
+  },
+  "final_test": {
+    "model": "Random Forest",
+    "threshold": 0.37,
+    "test_average_precision": 0.8443594463229418,
+    "test_roc_auc": 0.9603714897028807,
+    "test_precision": 0.9382716049382716,
+    "test_recall": 0.8,
+    "test_f1": 0.8636363636363636,
+    "confusion_matrix": [
+      [
+        56646,
+        5
+      ],
+      [
+        19,
+        76
+      ]
+    ]
+  }
+}
