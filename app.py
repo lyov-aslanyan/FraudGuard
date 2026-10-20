@@ -1,9 +1,9 @@
 from pathlib import Path
-
+import math
 import joblib
 import pandas as pd
 from fastapi import FastAPI, HTTPException
-from pydantic import BaseModel, Field
+from pydantic import BaseModel, Field ,field_validator
 
 
 # Project paths
@@ -42,6 +42,17 @@ class Transaction(BaseModel):
         ),
     )
 
+    @field_validator("features")
+    @classmethod
+    def features_must_be_finite(
+        cls, values: list[float]
+    ) -> list[float]:
+        if not all(math.isfinite(value) for value in values):
+            raise ValueError(
+                "All feature values must be finite numbers."
+            )
+
+        return values
 
 @app.get("/")
 def home():

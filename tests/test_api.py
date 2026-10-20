@@ -1,4 +1,4 @@
-
+import math
 import sys
 from pathlib import Path
 
@@ -8,7 +8,7 @@ sys.path.insert(0, str(PROJECT_ROOT))
 from fastapi.testclient import TestClient
 from app import app, feature_names
 
-client = TestClient(app)
+client = TestClient(app, raise_server_exceptions=False)
 
 def test_home():
     response = client.get("/")
@@ -45,6 +45,39 @@ def test_predict_missing_features():
     response = client.post(
         "/predict",
         json={},
+    )
+
+    assert response.status_code == 422
+
+def test_rejects_nan_value():
+    features = ["0.0"] * 30
+    features[0] = '"NaN"'
+
+    response = client.post(
+        "/predict",
+        content=(
+            '{"features": ['
+            + ",".join(features)
+            + "]}"
+        ),
+        headers={"Content-Type": "application/json"},
+    )
+
+    assert response.status_code == 422
+
+
+def test_rejects_infinity_value():
+    features = ["0.0"] * 30
+    features[0] = '"Infinity"'
+
+    response = client.post(
+        "/predict",
+        content=(
+            '{"features": ['
+            + ",".join(features)
+            + "]}"
+        ),
+        headers={"Content-Type": "application/json"},
     )
 
     assert response.status_code == 422
